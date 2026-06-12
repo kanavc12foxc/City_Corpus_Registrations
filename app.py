@@ -17,7 +17,7 @@ db.init_db()
 # Event limits dictionary
 EVENTS_CONFIG = {
     "City Skylines": {"type": "Real Estate Event", "max": 2},
-    "City Synergy": {"type": "Marketing Event", "max": 2},
+    "CityCampaign - Marketing Event": {"type": "Marketing Event", "max": 4},
     "City Verdict": {"type": "Moot Court", "max": 2},
     "City Conquest": {"type": "Corporate Hunt", "max": 2},
     "City Heritage": {"type": "Hotel Management", "max": 2},
