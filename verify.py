@@ -14,12 +14,20 @@ class CityCorpusTestCase(unittest.TestCase):
     def setUp(self):
         # Reset database tables
         db.init_db()
+<<<<<<< HEAD
+        conn = db.get_db_connection()
+        conn.execute("DELETE FROM registrations")
+        conn.execute("DELETE FROM schools")
+        conn.commit()
+        conn.close()
+=======
         # Clear registrations and schools via Supabase client
         try:
             db.get_client().table("registrations").delete().neq("id", -1).execute()
             db.get_client().table("schools").delete().neq("name", "").execute()
         except Exception as e:
             print(f"Test setUp warning (failed to clear database): {e}")
+>>>>>>> bf06cf3 (Initial commit with Supabase integration, mobile UI fixes, and configuration)
         self.client = app.test_client()
 
     def test_database_school_crud(self):

@@ -1,40 +1,17 @@
 import os
-from dotenv import load_dotenv
 from supabase import create_client, Client
 
-# Load environment variables from .env
-load_dotenv()
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "")
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-
-# Safely initialize the client to prevent crash-on-import if env variables are missing
-if (not SUPABASE_URL or not SUPABASE_KEY or 
-    SUPABASE_URL == "YOUR_SUPABASE_URL" or 
-    SUPABASE_KEY == "YOUR_SUPABASE_KEY"):
-    print("\n" + "="*70)
-    print("WARNING: Supabase credentials are not configured in the .env file.")
-    print("Please update .env with your SUPABASE_URL and SUPABASE_KEY.")
-    print("="*70 + "\n")
-    supabase = None
-else:
-    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def get_client() -> Client:
-    if supabase is None:
-        raise ValueError("Supabase client is not initialized. Please set SUPABASE_URL and SUPABASE_KEY in your .env file.")
     return supabase
 
 def init_db():
-    # Verify the connection to Supabase
-    if supabase is None:
-        print("Supabase is not configured. Skipping database check.")
-        return
-    try:
-        get_client().table("schools").select("name").limit(1).execute()
-        print("Supabase connection check: Success!")
-    except Exception as e:
-        print(f"Supabase connection check warning: {e}")
+    # No-op for Supabase — tables are managed via the Supabase dashboard.
+    pass
 
 def add_school(name, password):
     try:
@@ -124,4 +101,4 @@ def get_all_registrations():
         return []
 
 if __name__ == '__main__':
-    init_db()
+    print("Supabase db.py loaded. Tables are managed via the Supabase dashboard.")
