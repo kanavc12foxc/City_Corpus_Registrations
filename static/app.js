@@ -287,7 +287,10 @@ function renderEventsDropdown() {
         const info = EVENTS[eventName];
         const option = document.createElement("div");
         option.className = "custom-option";
-        option.textContent = `${eventName} – ${info.type} [Max: ${info.max}]`;
+        const label = eventName.toLowerCase().includes(info.type.toLowerCase())
+            ? `${eventName} [${info.max} participant${info.max > 1 ? 's' : ''}]`
+            : `${eventName} – ${info.type} [${info.max} participant${info.max > 1 ? 's' : ''}]`;
+        option.textContent = label;
         option.dataset.value = eventName;
         
         option.addEventListener("click", () => {
